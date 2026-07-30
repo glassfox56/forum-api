@@ -13,7 +13,8 @@
     "migrate": "node-pg-migrate",
     "migrate:test": "node-pg-migrate --envPath .test.env",
     "lint": "eslint ./",
-    "test:postman": "bash scripts/test-postman.sh"
+    "test:postmanV1": "bash scripts/test-postman.sh V1",
+    "test:postmanV2": "bash scripts/test-postman.sh V2"
   },
   "keywords": [],
   "author": "",

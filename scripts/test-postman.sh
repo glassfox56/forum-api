@@ -1,9 +1,16 @@
 #!/bin/bash
 set -e
 
-COLLECTION="Forum API V1 Test/Forum API V1 Test.postman_collection.json"
-ENVIRONMENT="Forum API V1 Test/Forum API V1 Test.postman_environment.json"
+VERSION=${1:-V1}
 PORT=3000
+
+if [ "$VERSION" = "V2" ]; then
+  COLLECTION="Forum API V2 Test/Forum API V2 Test.postman_collection.json"
+  ENVIRONMENT="Forum API V2 Test/Forum API V2 Test.postman_environment.json"
+else
+  COLLECTION="Forum API V1 Test/Forum API V1 Test.postman_collection.json"
+  ENVIRONMENT="Forum API V1 Test/Forum API V1 Test.postman_environment.json"
+fi
 
 # Start server in background
 node src/app.js &
