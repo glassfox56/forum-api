@@ -4,6 +4,7 @@ import DeleteCommentUseCase from '../../../../Applications/use_case/DeleteCommen
 import GetThreadDetailUseCase from '../../../../Applications/use_case/GetThreadDetailUseCase.js';
 import AddReplyUseCase from '../../../../Applications/use_case/AddReplyUseCase.js';
 import DeleteReplyUseCase from '../../../../Applications/use_case/DeleteReplyUseCase.js';
+import LikeCommentUseCase from '../../../../Applications/use_case/LikeCommentUseCase.js';
 
 class ThreadsHandler {
   constructor(container) {
@@ -15,6 +16,7 @@ class ThreadsHandler {
     this.getThreadDetailHandler = this.getThreadDetailHandler.bind(this);
     this.postReplyHandler = this.postReplyHandler.bind(this);
     this.deleteReplyHandler = this.deleteReplyHandler.bind(this);
+    this.putCommentLikeHandler = this.putCommentLikeHandler.bind(this);
   }
 
   async postThreadHandler(req, res, next) {
@@ -22,8 +24,14 @@ class ThreadsHandler {
       const { title, body } = req.body;
       const owner = req.userId;
 
-      const addThreadUseCase = this._container.getInstance(AddThreadUseCase.name);
-      const addedThread = await addThreadUseCase.execute({ title, body, owner });
+      const addThreadUseCase = this._container.getInstance(
+        AddThreadUseCase.name,
+      );
+      const addedThread = await addThreadUseCase.execute({
+        title,
+        body,
+        owner,
+      });
 
       res.status(201).json({
         status: 'success',
@@ -42,8 +50,14 @@ class ThreadsHandler {
       const { threadId } = req.params;
       const owner = req.userId;
 
-      const addCommentUseCase = this._container.getInstance(AddCommentUseCase.name);
-      const addedComment = await addCommentUseCase.execute({ content, threadId, owner });
+      const addCommentUseCase = this._container.getInstance(
+        AddCommentUseCase.name,
+      );
+      const addedComment = await addCommentUseCase.execute({
+        content,
+        threadId,
+        owner,
+      });
 
       res.status(201).json({
         status: 'success',
@@ -61,7 +75,9 @@ class ThreadsHandler {
       const { threadId, commentId } = req.params;
       const owner = req.userId;
 
-      const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
+      const deleteCommentUseCase = this._container.getInstance(
+        DeleteCommentUseCase.name,
+      );
       await deleteCommentUseCase.execute({ commentId, threadId, owner });
 
       res.status(200).json({
@@ -76,7 +92,9 @@ class ThreadsHandler {
     try {
       const { threadId } = req.params;
 
-      const getThreadDetailUseCase = this._container.getInstance(GetThreadDetailUseCase.name);
+      const getThreadDetailUseCase = this._container.getInstance(
+        GetThreadDetailUseCase.name,
+      );
       const thread = await getThreadDetailUseCase.execute(threadId);
 
       res.status(200).json({
@@ -97,7 +115,12 @@ class ThreadsHandler {
       const owner = req.userId;
 
       const addReplyUseCase = this._container.getInstance(AddReplyUseCase.name);
-      const addedReply = await addReplyUseCase.execute({ content, commentId, threadId, owner });
+      const addedReply = await addReplyUseCase.execute({
+        content,
+        commentId,
+        threadId,
+        owner,
+      });
 
       res.status(201).json({
         status: 'success',
@@ -115,8 +138,28 @@ class ThreadsHandler {
       const { threadId, commentId, replyId } = req.params;
       const owner = req.userId;
 
-      const deleteReplyUseCase = this._container.getInstance(DeleteReplyUseCase.name);
+      const deleteReplyUseCase = this._container.getInstance(
+        DeleteReplyUseCase.name,
+      );
       await deleteReplyUseCase.execute({ replyId, commentId, threadId, owner });
+
+      res.status(200).json({
+        status: 'success',
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async putCommentLikeHandler(req, res, next) {
+    try {
+      const { threadId, commentId } = req.params;
+      const owner = req.userId;
+
+      const likeCommentUseCase = this._container.getInstance(
+        LikeCommentUseCase.name,
+      );
+      await likeCommentUseCase.execute({ threadId, commentId, owner });
 
       res.status(200).json({
         status: 'success',

@@ -7,14 +7,14 @@
   "scripts": {
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
-    "test": "vitest --run",
-    "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage",
+    "test": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --run",
+    "test:watch": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --watch",
+    "test:coverage": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --coverage",
     "migrate": "node-pg-migrate",
     "migrate:test": "node-pg-migrate --envPath .test.env",
     "lint": "eslint ./",
-    "test:postmanV1": "bash scripts/test-postman.sh V1",
-    "test:postmanV2": "bash scripts/test-postman.sh V2"
+    "test:postmanV1": "NODE_ENV=test DOTENV_CONFIG_PATH=.test.env bash scripts/test-postman.sh V1",
+    "test:postmanV2": "NODE_ENV=test DOTENV_CONFIG_PATH=.test.env bash scripts/test-postman.sh V2"
   },
   "keywords": [],
   "author": "",

@@ -15,7 +15,7 @@ const createServer = async (container) => {
 
   const authMiddleware = createAuthMiddleware(container);
   const threadsRateLimit = createRateLimitMiddleware({
-    maxRequests: 90,
+    maxRequests: process.env.NODE_ENV === 'test' ? 1000 : 90,
     windowMs: 60 * 1000,
   });
 
@@ -43,6 +43,7 @@ const createServer = async (container) => {
     }
 
     // penanganan server error sesuai kebutuhan
+    console.error(error);
     return res.status(500).json({
       status: 'error',
       message: 'terjadi kegagalan pada server kami',

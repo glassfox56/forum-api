@@ -12,8 +12,8 @@ else
   ENVIRONMENT="Forum API V1 Test/Forum API V1 Test.postman_environment.json"
 fi
 
-# Start server in background
-node src/app.js &
+# Start server in background using test environment
+NODE_ENV=test DOTENV_CONFIG_PATH=.test.env node src/app.js &
 SERVER_PID=$!
 
 echo "Server started (PID: $SERVER_PID), waiting for ready..."

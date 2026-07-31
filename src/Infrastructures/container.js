@@ -35,6 +35,7 @@ import DeleteCommentUseCase from '../Applications/use_case/DeleteCommentUseCase.
 import GetThreadDetailUseCase from '../Applications/use_case/GetThreadDetailUseCase.js';
 import AddReplyUseCase from '../Applications/use_case/AddReplyUseCase.js';
 import DeleteReplyUseCase from '../Applications/use_case/DeleteReplyUseCase.js';
+import LikeCommentUseCase from '../Applications/use_case/LikeCommentUseCase.js';
 
 // creating container
 const container = createContainer();
@@ -83,8 +84,8 @@ container.register([
     parameter: {
       dependencies: [
         {
-          concrete: jwt
-        }
+          concrete: jwt,
+        },
       ],
     },
   },
@@ -312,6 +313,23 @@ container.register([
         {
           name: 'replyRepository',
           internal: ReplyRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: LikeCommentUseCase.name,
+    Class: LikeCommentUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'threadRepository',
+          internal: ThreadRepository.name,
+        },
+        {
+          name: 'commentRepository',
+          internal: CommentRepository.name,
         },
       ],
     },
