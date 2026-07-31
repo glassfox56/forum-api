@@ -8,6 +8,8 @@
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
     "test": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --run",
+    "test:unit": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --run src/Domains src/Applications src/Commons",
+    "test:integration": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --run src/Infrastructures",
     "test:watch": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --watch",
     "test:coverage": "DOTENV_CONFIG_PATH=.test.env NODE_ENV=test vitest --coverage",
     "migrate": "node-pg-migrate",
