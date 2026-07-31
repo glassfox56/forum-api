@@ -7,10 +7,7 @@ describe('GET /health', () => {
 
     const response = await request(app).get('/health');
 
-    // NOTE: Intentionally wrong — expects 201 but server returns 200.
-    // This is for demonstrating the FAILING CI scenario.
-    // To make CI pass: change 201 → 200 below, then push again.
-    expect(response.status).toEqual(201);
+    expect(response.status).toEqual(200);
     expect(response.body.status).toEqual('ok');
   });
 });
