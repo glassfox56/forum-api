@@ -1,6 +1,6 @@
 # Forum API
 
-Simple discussion forum API built with Node.js, Express, and PostgreSQL.
+Built with Node.js, Express, and PostgreSQL.
 
 ## Environment
 
