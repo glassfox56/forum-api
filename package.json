@@ -18,7 +18,11 @@
     "test:postmanV1": "NODE_ENV=test DOTENV_CONFIG_PATH=.test.env bash scripts/test-postman.sh V1",
     "test:postmanV2": "NODE_ENV=test DOTENV_CONFIG_PATH=.test.env bash scripts/test-postman.sh V2"
   },
-  "keywords": [],
+  "keywords": [
+    "forum",
+    "api",
+    "dicoding"
+  ],
   "author": "glassfox",
   "license": "ISC",
   "dependencies": {
