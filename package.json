@@ -19,7 +19,7 @@
     "test:postmanV2": "NODE_ENV=test DOTENV_CONFIG_PATH=.test.env bash scripts/test-postman.sh V2"
   },
   "keywords": [],
-  "author": "",
+  "author": "glassfox",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
