@@ -12,7 +12,9 @@ if (process.env.NODE_ENV === 'test') {
 
 const config = {
   app: {
-    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
+    host:
+      process.env.HOST ||
+      (process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0'),
     port: process.env.PORT,
     debug: process.env.NODE_ENV === 'development' ? { request: ['error'] } : {},
   },

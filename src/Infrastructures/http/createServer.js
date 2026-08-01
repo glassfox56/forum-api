@@ -5,7 +5,6 @@ import users from '../../Interfaces/http/api/users/index.js';
 import authentications from '../../Interfaces/http/api/authentications/index.js';
 import threads from '../../Interfaces/http/api/threads/index.js';
 import createAuthMiddleware from './middleware/auth.js';
-import createRateLimitMiddleware from './middleware/rateLimit.js';
 
 const createServer = async (container) => {
   const app = express();
@@ -14,10 +13,6 @@ const createServer = async (container) => {
   app.use(express.json());
 
   const authMiddleware = createAuthMiddleware(container);
-  const threadsRateLimit = createRateLimitMiddleware({
-    maxRequests: process.env.NODE_ENV === 'test' ? 1000 : 90,
-    windowMs: 60 * 1000,
-  });
 
   // Health check
   app.get('/health', (_req, res) => {
@@ -27,7 +22,7 @@ const createServer = async (container) => {
   // Register routes
   app.use('/users', users(container));
   app.use('/authentications', authentications(container));
-  app.use('/threads', threadsRateLimit, threads(container, authMiddleware));
+  app.use('/threads', threads(container, authMiddleware));
 
   // Global error handler
   app.use((error, req, res, _next) => {
